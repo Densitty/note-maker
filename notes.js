@@ -1,4 +1,4 @@
-const notes = getSavedNotes();
+let notes = getSavedNotes();
 const addNote = document.querySelector('.addNote');
 const form = document.querySelector('#nameForm');
 const search = document.querySelector('.searchNote');
@@ -25,15 +25,25 @@ sort.addEventListener('change', function (e) {
 })
 
 addNote.addEventListener('click', function () {
+	const noteTag = uuidv4();
 	notes.push({
-		id: uuidv4(),
+		id: noteTag,
 		title: '',
 		body: ''
 	});
 	//call the function saving to storage
 	saveToStorage(notes)
-	//render the function calling the notes
-	renderNotes(notes, filters);
+	//on clicking the create note button, I get directed to the href specified below with a unique id for the note (location.hash)
+	location.assign(`/3.%20FIltering%20List/note.html#${noteTag}`);
+})
+
+//bring the synchronisation functionality into the home page too
+window.addEventListener('storage', function (e) {
+	if (e.key === 'notes') {
+		//resave the notes array into what was 
+		notes = JSON.parse(e.newValue);
+		renderNotes(notes, filters)
+	}
 })
 // form.addEventListener('submit', (e) => {
 // 	e.preventDefault();

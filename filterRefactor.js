@@ -17,7 +17,6 @@ const saveToStorage = function (notes) {
 //Remove a note from the list
 const removeNote = function (id) {
     const noteIndex = notes.findIndex(function (note) {
-        console.log(note.id === id)
         return note.id === id
     })
 
@@ -31,12 +30,11 @@ const removeNote = function (id) {
 const generateNoteDOM = function (filteredNote, index) {
     const div = document.createElement('div');
     const button = document.createElement('button');
-    const para = document.createElement('span');
+    const para = document.createElement('a');
     //create button content
     button.textContent = 'x';
     //delete a note on click of a button
     button.addEventListener('click', function () {
-        console.log(div)
         removeNote(filteredNote.id);
         saveToStorage(notes);
         renderNotes(notes, filters)
@@ -49,8 +47,8 @@ const generateNoteDOM = function (filteredNote, index) {
     } else {
         para.textContent = 'No named note';
     }
-
-
+    //on creating the note link to each note and clicking on it, I get directed to the href specified below with a unique id attached to locate that note
+    para.setAttribute('href', `note.html#${filteredNote.id}`)
     div.appendChild(para);
     return div;
 }
