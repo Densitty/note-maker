@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notes App</title>
+    <style>
+        button {
+            outline: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: #812121;
+            color: #fff;
+            border-radius: 2px;
+            padding: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        input:nth-child(1) {
+            outline: none;
+            border: 1px solid transparent;
+            background: #ff2323;
+            color: #fff;
+            border-radius: 2px;
+            padding: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            transition: all 1s 0.5s;
+        }
+        .searchNote {
+            background: #ccc;
+            color: #000;
+            outline: 0;
+            border: none;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notes App</h1>
+    <h2>Take notes and never forget</h2>
+    <input class="searchNote" type="text" placeholder="Filter or search your notes">
+    <select name="sort" id="sort">
+        <option value="lastEdited">Sort by Last Edited</option>
+        <option value="lastCreated">Sort by Last Created</option>
+        <option value="alphabetical">Sort Alphabetically</option>
+    </select>
+    <div id="notes">
+
+    </div>
+
+    <button class="addNote">Create Note</button>
+    
+    
+  
+    <!-- <form id='nameForm' action="">
+        <input type="text" placeholder="note title..." name="noteTitle">
+        <button>Submit</button>
+    </form> -->
+   
+    <script src='uuidv4.js'></script>
+    <script src="filterRefactor.js"></script>
+    <script src="notes.js"></script>
+</body>
+</html>
