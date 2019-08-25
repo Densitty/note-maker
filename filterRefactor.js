@@ -1,24 +1,24 @@
 //Read exisiting notes from Local Storage function
-const getSavedNotes = function () {
+const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes')
     //find from local storage
-    if (notesJSON !== null) {
+    notesJSON !== null ? JSON.parse(notesJSON) : [];
+    /*if (notesJSON !== null) {
         return JSON.parse(notesJSON);
     } else {
         return [];
-    }
+    }*/
 }
 
 //Save notes to local storage
-const saveToStorage = function (notes) {
-    return localStorage.setItem('notes', JSON.stringify(notes))
+const saveToStorage = notes => {
+    localStorage.setItem('notes', JSON.stringify(notes))
 }
 
 //Remove a note from the list
-const removeNote = function (id) {
-    const noteIndex = notes.findIndex(function (note) {
-        return note.id === id
-    })
+const removeNote = id => {
+    const noteIndex = notes.findIndex((note) => note.id === id
+    )
 
     //check if the index is found
     if (noteIndex > -1) {
@@ -27,14 +27,14 @@ const removeNote = function (id) {
 }
 
 //Generate DOM for the note
-const generateNoteDOM = function (filteredNote, index) {
+const generateNoteDOM = (filteredNote, index) => {
     const div = document.createElement('div');
     const button = document.createElement('button');
     const para = document.createElement('a');
     //create button content
     button.textContent = 'x';
     //delete a note on click of a button
-    button.addEventListener('click', function () {
+    button.addEventListener('click', () => {
         removeNote(filteredNote.id);
         saveToStorage(notes);
         renderNotes(notes, filters)
@@ -54,10 +54,8 @@ const generateNoteDOM = function (filteredNote, index) {
 }
 
 //Render output whenever our note is searched
-const renderNotes = function (notes, filters) {
-    const filteredNotes = notes.filter(function (note) {
-        return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
-    });
+const renderNotes = (notes, filters) => {
+    const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(filters.searchText.toLowerCase()));
 
     //clear all the contents of the container
     document.querySelector('#notes').innerHTML = '';

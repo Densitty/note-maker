@@ -14,17 +14,17 @@ const filters = {
 renderNotes(notes, filters);
 
 //setting of the text to search for in the input
-search.addEventListener('input', function (e) {
+search.addEventListener('input', e => {
 	filters.searchText = e.target.value;
 	//call the function to display to screen upon input of a text
 	renderNotes(notes, filters);
 });
 
-sort.addEventListener('change', function (e) {
+sort.addEventListener('change', e => {
 	console.log(e.target.value);
 })
 
-addNote.addEventListener('click', function () {
+addNote.addEventListener('click', () => {
 	const noteTag = uuidv4();
 	notes.push({
 		id: noteTag,
@@ -38,7 +38,7 @@ addNote.addEventListener('click', function () {
 })
 
 //bring the synchronisation functionality into the home page too
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', e => {
 	if (e.key === 'notes') {
 		//resave the notes array into what was 
 		notes = JSON.parse(e.newValue);
