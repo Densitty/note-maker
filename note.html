@@ -9,11 +9,13 @@
 <body>
     <h2>This is the editing page</h2>
     <input id="noteTitle" type="text" placeholder="Note title">
+    <span id="last-edited"></span>
     <textarea name="" cols="30" rows="10" placeholder="Enter your text" id="noteBody"></textarea>
     <button id="addNote">Add Note</button>
     <button id="removeNote">Remove Note</button>
     
-
+<!-- Adding the moment.js 3rd party library for dates and times effect -->
+    <script src="moment.js"></script>
     <script src="filterRefactor.js"></script>
     <script src="noteEdit.js"></script>
 </body>

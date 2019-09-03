@@ -1,13 +1,20 @@
+'use strict'
+
+
 //Read exisiting notes from Local Storage function
 const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes')
-    //find from local storage
-    notesJSON !== null ? JSON.parse(notesJSON) : [];
-    /*if (notesJSON !== null) {
-        return JSON.parse(notesJSON);
-    } else {
+    //prevent our script from crashing even if an error occurs
+    try {
+        //find from local storage
+        return notesJSON !== null ? JSON.parse(notesJSON) : []
+        //either use ternary operator above or if/else below
+        /* if (notesJSON !== null) {return JSON.parse(notesJSON);
+        } else { return []; }*/
+    } catch (e) {
         return [];
-    }*/
+    }
+
 }
 
 //Save notes to local storage
@@ -53,11 +60,51 @@ const generateNoteDOM = (filteredNote, index) => {
     return div;
 }
 
+//sort notes created
+const sortNotes = function (notes, sortBy) {
+    if (sortBy === 'lastEdited') {
+        return notes.sort(function (a, b) {
+            if (a.updatedAt > b.updatedAt) {
+                return -1
+            } else if (a.updatedAt < b.updatedAt) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    } else if (sortBy === 'lastCreated') {
+        return notes.sort(function (a, b) {
+            if (a.createdAt > b.createdAt) {
+                return -1
+            } else if (a.createdAt < b.createdAt) {
+                return 1;
+            } else {
+                return 0
+            }
+        })
+    } else if (sortBy === 'alphabetical') {
+        return notes.sort(function (a, b) {
+            if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                return -1
+            } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                return 1
+            } else {
+                return 0;
+            }
+        })
+    } else {
+        return notes
+    }
+}
+
 //Render output whenever our note is searched
+//renderNotes work on the notes array and the filters object
 const renderNotes = (notes, filters) => {
+    //call the sortNotes() in this function and assign it to the notes array; 
+    notes = sortNotes(notes, filters.sortBy);
     const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(filters.searchText.toLowerCase()));
 
-    //clear all the contents of the container
+    //clear all the contents of the notes div before renderinng any content unto it again
     document.querySelector('#notes').innerHTML = '';
 
     //display our result onto the document body
@@ -67,3 +114,8 @@ const renderNotes = (notes, filters) => {
         document.querySelector('#notes').appendChild(para);
     });
 };
+
+//Generate the last edited message from the timestamp
+const generateLastEdited = function (timestamp) {
+    return `Last edited ${moment(timestamp).fromNow()}`
+}

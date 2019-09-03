@@ -1,20 +1,24 @@
+'use strict'
+
 const title = document.querySelector('#noteTitle');
 const body = document.querySelector('#noteBody');
 //on this page, there is a location.hash attached; to access the id, we strip off the # using substring
 const noteId = location.hash.slice(1);
-//render the notes, if any exists, array from the local storage
+//render the notes array, if any exists, from the local storage
 let notes = getSavedNotes();
 
+const dateElement = document.querySelector('#last-edited');
 let note = notes.find(function (note) {
     return note.id === noteId
 })
-
+console.log(note)
 if (note === undefined) {
     location.assign(`/3.%20FIltering%20List/index.html`)
 }
 
 title.value = note.title;
 body.value = note.body;
+dateElement.textContent = generateLastEdited(note.updatedAt);
 
 document.querySelector('#addNote').addEventListener('click', function () {
     saveToStorage(notes);
@@ -24,11 +28,19 @@ document.querySelector('#addNote').addEventListener('click', function () {
 
 title.addEventListener('input', function (e) {
     note.title = e.target.value;
+    //whenever we edit the  note, capture the timestamp
+    note.updatedAt = moment().valueOf();
+    //on editing the title, update and record the time
+    dateElement.textContent = generateLastEdited(note.updatedAt);
     saveToStorage(notes)
 });
 
 body.addEventListener('input', function (e) {
     note.body = e.target.value;
+    //whenever we edit the  note, capture the timestamp
+    note.updatedAt = moment().valueOf();
+    //on editing the body of the note, update and record the time
+    dateElement.textContent = generateLastEdited(note.updatedAt);
     saveToStorage(notes)
 })
 
@@ -56,5 +68,7 @@ window.addEventListener('storage', function (e) {
 
         title.value = note.title;
         body.value = note.body;
+        //this allows timestamp to be captured when we duplicate the window
+        dateElement.textContent = generateLastEdited(note.updatedAt);
     }
 })
