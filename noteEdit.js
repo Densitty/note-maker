@@ -13,7 +13,7 @@ let note = notes.find(function (note) {
 })
 console.log(note)
 if (note === undefined) {
-    location.assign(`/3.%20FIltering%20List/index.html`)
+    location.assign(`index.html`)
 }
 
 title.value = note.title;
@@ -22,7 +22,7 @@ dateElement.textContent = generateLastEdited(note.updatedAt);
 
 document.querySelector('#addNote').addEventListener('click', function () {
     saveToStorage(notes);
-    location.assign(`/3.%20FIltering%20List/index.html`)
+    location.assign(`index.html`)
 })
 
 
@@ -50,7 +50,7 @@ document.querySelector('#removeNote').addEventListener('click', function () {
     //save the notes array to local storage again on modification
     saveToStorage(notes);
     //redirect back to the homepage
-    location.assign(`/3.%20FIltering%20List/index.html`)
+    location.assign(`index.html`)
 })
 
 //to synchronise the changes we make to the array across all the tabs, if we are to make multiple tabs of same page. This event is triggered on the second opened tab and not the current tab we are working on
@@ -63,7 +63,7 @@ window.addEventListener('storage', function (e) {
         })
 
         if (note === undefined) {
-            location.assign(`/3.%20FIltering%20List/index.html`)
+            location.assign(`index.html`)
         }
 
         title.value = note.title;
