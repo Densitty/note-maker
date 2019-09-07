@@ -46,7 +46,7 @@ addNote.addEventListener('click', () => {
 	//call the function saving to storage
 	saveToStorage(notes)
 	//on clicking the create note button, I get directed to the href specified below with a unique id for the note (location.hash)
-	location.assign(`/3.%20FIltering%20List/note.html#${noteTag}`);
+	location.assign(`note.html#${noteTag}`);
 })
 
 //bring the synchronisation functionality into the home page too
